@@ -1,0 +1,199 @@
+project_name: sizely
+
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+
+builds:
+  - id: capacity-calc
+    binary: capacity-calc
+    main: ./cmd/capacity-calc
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+      - arm
+    goarm:
+      - "6"
+      - "7"
+    ignore:
+      - goos: windows
+        goarch: arm64
+      - goos: windows
+        goarch: arm
+    ldflags:
+      - -s -w
+      - -X main.version={{.Version}}
+      - -X main.commit={{.Commit}}
+      - -X main.date={{.Date}}
+
+universal_binaries:
+  - id: capacity-calc-universal
+    replace: true
+    name_template: capacity-calc
+
+archives:
+  - id: default
+    builds:
+      - capacity-calc
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - README.md
+      - LICENSE
+      - CHANGELOG.md
+      - examples/**/*
+
+checksum:
+  name_template: "checksums.txt"
+
+snapshot:
+  name_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^ci:"
+      - "^build:"
+      - "^style:"
+      - "^refactor:"
+      - "^chore:"
+      - Merge pull request
+      - Merge branch
+  groups:
+    - title: "New Features"
+      regexp: '^.*?feat(\(.+\))??!?:.+$'
+      order: 0
+    - title: "Bug Fixes"
+      regexp: '^.*?fix(\(.+\))??!?:.+$'
+      order: 1
+    - title: "Performance Improvements"
+      regexp: '^.*?perf(\(.+\))??!?:.+$'
+      order: 2
+    - title: "Documentation Updates"
+      regexp: '^.*?docs(\(.+\))??!?:.+$'
+      order: 3
+    - title: "Other Changes"
+      order: 999
+
+release:
+  github:
+    owner: yourusername
+    name: sprint-capacity-calculator
+  draft: false
+  prerelease: auto
+  name_template: "Release {{.Version}}"
+  header: |
+    ## Sprint Capacity Calculator {{.Version}}
+
+    **Release Date:** {{.Date}}
+
+    ### What's Changed
+  footer: |
+    ### Installation
+
+    #### Using Go Install
+    ```bash
+    go install github.com/yourusername/sprint-capacity-calculator/cmd/capacity-calc@{{.Version}}
+    ```
+
+    #### Download Binary
+    Download the appropriate binary for your platform from the assets below.
+
+    #### Using Homebrew (macOS/Linux)
+    ```bash
+    brew install yourusername/tap/capacity-calc
+    ```
+
+brews:
+  - name: capacity-calc
+    repository:
+      owner: yourusername
+      name: homebrew-tap
+    directory: Formula
+    homepage: https://github.com/yourusername/sprint-capacity-calculator
+    description: "CLI tool for SRE teams to calculate sprint capacity using T-shirt size estimation"
+    license: MIT
+    dependencies:
+      - name: go
+        type: optional
+    test: |
+      system "#{bin}/capacity-calc", "--version"
+    install: |
+      bin.install "capacity-calc"
+
+dockers:
+  - image_templates:
+      - "ghcr.io/yourusername/sprint-capacity-calculator:{{ .Version }}-amd64"
+      - "ghcr.io/yourusername/sprint-capacity-calculator:latest-amd64"
+    dockerfile: Dockerfile
+    use: buildx
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source=https://github.com/yourusername/sprint-capacity-calculator"
+
+  - image_templates:
+      - "ghcr.io/yourusername/sprint-capacity-calculator:{{ .Version }}-arm64"
+      - "ghcr.io/yourusername/sprint-capacity-calculator:latest-arm64"
+    dockerfile: Dockerfile
+    use: buildx
+    build_flag_templates:
+      - "--platform=linux/arm64"
+      - "--label=org.opencontainers.image.created={{.Date}}"
+      - "--label=org.opencontainers.image.title={{.ProjectName}}"
+      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+      - "--label=org.opencontainers.image.version={{.Version}}"
+      - "--label=org.opencontainers.image.source=https://github.com/yourusername/sprint-capacity-calculator"
+
+docker_manifests:
+  - name_template: "ghcr.io/yourusername/sprint-capacity-calculator:{{ .Version }}"
+    image_templates:
+      - "ghcr.io/yourusername/sprint-capacity-calculator:{{ .Version }}-amd64"
+      - "ghcr.io/yourusername/sprint-capacity-calculator:{{ .Version }}-arm64"
+
+  - name_template: "ghcr.io/yourusername/sprint-capacity-calculator:latest"
+    image_templates:
+      - "ghcr.io/yourusername/sprint-capacity-calculator:latest-amd64"
+      - "ghcr.io/yourusername/sprint-capacity-calculator:latest-arm64"
+
+nfpms:
+  - id: packages
+    package_name: capacity-calc
+    vendor: yourusername
+    homepage: https://github.com/yourusername/sprint-capacity-calculator
+    maintainer: Your Name <your.email@example.com>
+    description: |-
+      CLI tool for SRE teams to calculate sprint capacity using T-shirt size estimation.
+      Helps with sprint planning and capacity management for agile teams.
+    license: MIT
+    formats:
+      - deb
+      - rpm
+      - apk
+    dependencies:
+      - git
+    recommends:
+      - jq
+    bindir: /usr/bin
