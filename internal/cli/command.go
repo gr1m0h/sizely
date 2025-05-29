@@ -85,12 +85,6 @@ T-SHIRT SIZE POINTS:
   M:  5 points (2-3 days)
   L:  10 points (1 week)
 
-CAPACITY ASSESSMENT:
-  Optimal Range: 28-38 points for SRE teams
-  - Based on 3 team members, 2-week sprints
-  - Includes buffer for incident response
-  - Balances planned work and operational tasks
-
 EXAMPLES:
   # Calculate points from JSON file
   capacity-calc -calc -input tasks.json

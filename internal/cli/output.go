@@ -20,9 +20,6 @@ func NewOutputFormatter() *OutputFormatter {
 func (f *OutputFormatter) PrintCapacity(capacity models.SprintCapacity) {
 	fmt.Printf("📊 Sprint Capacity Calculation\n")
 	fmt.Printf("═══════════════════════════════\n")
-
-	// Capacity assessment
-	f.printCapacityAssessment(capacity.Assessment)
 }
 
 // PrintCombinations prints reverse calculation results
@@ -56,27 +53,6 @@ func (f *OutputFormatter) PrintCombinations(result models.CombinationResult) {
 	fmt.Printf("📋 JSON Output:\n")
 	jsonOutput, _ := json.MarshalIndent(result, "", "  ")
 	fmt.Printf("%s\n", jsonOutput)
-}
-
-// printCapacityAssessment prints the capacity assessment section
-func (f *OutputFormatter) printCapacityAssessment(assessment models.CapacityAssessment) {
-	fmt.Printf("\n🎯 Capacity Assessment\n")
-
-	var emoji string
-	switch assessment.Status {
-	case string(models.StatusOptimal):
-		emoji = "✅"
-	case string(models.StatusConservative), string(models.StatusAggressive):
-		emoji = "⚠️ "
-	default:
-		emoji = "🔴"
-	}
-
-	fmt.Printf("%s %s: %d points - %s\n",
-		emoji,
-		assessment.Status,
-		assessment.TotalPoints,
-		assessment.Message)
 }
 
 // printCombination prints a single combination with analysis
@@ -333,24 +309,6 @@ func (f *OutputFormatter) PrintBox(title string, content []string) {
 	}
 
 	fmt.Printf("%s\n\n", bottomBorder)
-}
-
-// PrintStatusIcon returns appropriate status icon
-func (f *OutputFormatter) PrintStatusIcon(status string) string {
-	switch strings.ToUpper(status) {
-	case "SUCCESS", "OPTIMAL", "COMPLETED":
-		return "✅"
-	case "WARNING", "CONSERVATIVE", "AGGRESSIVE":
-		return "⚠️"
-	case "ERROR", "FAILED", "TOO_HIGH", "TOO_LOW":
-		return "❌"
-	case "INFO", "PENDING":
-		return "ℹ️"
-	case "QUESTION":
-		return "❓"
-	default:
-		return "•"
-	}
 }
 
 // PrintColoredText prints text with color codes (for terminals that support ANSI)

@@ -25,26 +25,6 @@ type Combination struct {
 	Points int `json:"points" yaml:"points"`
 }
 
-// CapacityAssessment represents the assessment of a sprint capacity
-type CapacityAssessment struct {
-	Status      string `json:"status" yaml:"status"`
-	Message     string `json:"message" yaml:"message"`
-	TotalPoints int    `json:"total_points" yaml:"total_points"`
-	TotalTasks  int    `json:"total_tasks" yaml:"total_tasks"`
-	Optimal     bool   `json:"optimal" yaml:"optimal"`
-}
-
-// CapacityStatus represents different capacity status levels
-type CapacityStatus string
-
-const (
-	StatusOptimal      CapacityStatus = "OPTIMAL"
-	StatusConservative CapacityStatus = "CONSERVATIVE"
-	StatusAggressive   CapacityStatus = "AGGRESSIVE"
-	StatusTooLow       CapacityStatus = "TOO_LOW"
-	StatusTooHigh      CapacityStatus = "TOO_HIGH"
-)
-
 // TaskBreakdown represents a detailed breakdown of tasks by size
 type TaskBreakdown struct {
 	Size   string `json:"size" yaml:"size"`
@@ -55,9 +35,8 @@ type TaskBreakdown struct {
 
 // SprintCapacity represents a complete sprint capacity calculation
 type SprintCapacity struct {
-	Assessment CapacityAssessment `json:"assessment" yaml:"assessment"`
-	Breakdown  []TaskBreakdown    `json:"breakdown" yaml:"breakdown"`
-	Tasks      TaskCount          `json:"tasks" yaml:"tasks"`
+	Breakdown []TaskBreakdown `json:"breakdown" yaml:"breakdown"`
+	Tasks     TaskCount       `json:"tasks" yaml:"tasks"`
 }
 
 // CombinationResult represents the result of reverse calculation
