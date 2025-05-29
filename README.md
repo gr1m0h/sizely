@@ -153,9 +153,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Inspired by SRE best practices from Google and other tech companies
 - Built for teams practicing ScrumBan methodology
-- Designed with real-world SRE capacity planning in mind
 
 ## 📈 Roadmap
 
@@ -164,7 +162,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [ ] Team velocity tracking
 - [ ] Historical data analysis
 - [ ] Custom point configurations
-
----
-
-**Made with ❤️ for SRE teams**

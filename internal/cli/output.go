@@ -77,33 +77,6 @@ func (f *OutputFormatter) printCapacityAssessment(assessment models.CapacityAsse
 		assessment.Status,
 		assessment.TotalPoints,
 		assessment.Message)
-
-	// Additional SRE-specific advice
-	f.printSREAdvice(assessment)
-}
-
-// printSREAdvice prints SRE-specific capacity advice
-func (f *OutputFormatter) printSREAdvice(assessment models.CapacityAssessment) {
-	fmt.Printf("\n💼 SRE Team Considerations:\n")
-
-	if assessment.TotalPoints >= 35 {
-		fmt.Printf("   • High capacity - ensure 30%% reserved for incident response\n")
-		fmt.Printf("   • Consider extending timeline to maintain reliability\n")
-	} else if assessment.TotalPoints >= 28 {
-		fmt.Printf("   • Good capacity - reserve 20-25%% for operational tasks\n")
-		fmt.Printf("   • Monitor error budget consumption during sprint\n")
-	} else {
-		fmt.Printf("   • Lower capacity - opportunity for proactive improvements\n")
-		fmt.Printf("   • Good time for technical debt reduction\n")
-	}
-
-	if assessment.TotalTasks >= 12 {
-		fmt.Printf("   • High task count may cause context switching\n")
-		fmt.Printf("   • Consider combining smaller tasks or reducing scope\n")
-	} else if assessment.TotalTasks <= 6 {
-		fmt.Printf("   • Low task count - good for deep focus work\n")
-		fmt.Printf("   • Ideal for complex system improvements\n")
-	}
 }
 
 // printCombination prints a single combination with analysis
