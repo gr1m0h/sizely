@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Release](https://img.shields.io/github/release/gr1m0h/sizely.svg)](https://github.com/gr1m0h/sizely/releases)
 
-A command-line tool for SRE teams to calculate sprint capacity using T-shirt size estimation and find optimal task combinations for target sprint points.
+A command-line tool that performs T-shirt size estimation, calculates sprint capacity, and finds the optimal combination of tasks for the target sprint point.
 
 ## 🎯 Features
 
@@ -25,12 +25,6 @@ go install github.com/gr1m0h/sizely/cmd/sizely@latest
 ### Download Binary
 
 Download the latest binary from [releases page](https://github.com/gr1m0h/sizely/releases).
-
-### Using Homebrew (macOS/Linux)
-
-```bash
-brew install gr1m0h/tap/sizely
-```
 
 ### Building from Source
 
@@ -116,13 +110,6 @@ Found 12 combination(s):
 }
 ```
 
-## 📚 Documentation
-
-- [Installation Guide](docs/installation.md)
-- [Usage Guide](docs/usage.md)
-- [API Documentation](docs/api.md)
-- [Contributing Guide](docs/contributing.md)
-
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
@@ -147,15 +134,3 @@ make build
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Built for teams practicing ScrumBan methodology
-
-## 📈 Roadmap
-
-- [ ] Web UI interface
-- [ ] Integration with JIRA/Linear
-- [ ] Team velocity tracking
-- [ ] Historical data analysis
-- [ ] Custom point configurations

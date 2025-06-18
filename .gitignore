@@ -97,3 +97,5 @@ site/
 *.db
 *.sqlite
 *.sqlite3
+
+*.json
