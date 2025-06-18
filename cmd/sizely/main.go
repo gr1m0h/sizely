@@ -9,18 +9,19 @@ import (
 )
 
 func main() {
-	if len(os.Args) < 2 {
-		cli.ShowHelp()
+	// If no args or first arg starts with -, default to estimate
+	if len(os.Args) < 2 || (len(os.Args) >= 2 && os.Args[1][0] == '-') {
+		estimateCmdWithArgs(os.Args[1:])
 		return
 	}
 
 	subcommand := os.Args[1]
-	
+
 	switch subcommand {
-	case "calc":
-		calcCmd()
-	case "reverse":
-		reverseCmd()
+	case "estimate":
+		estimateCmdWithArgs(os.Args[2:])
+	case "breakdown":
+		breakdownCmd()
 	case "help", "-help", "--help":
 		cli.ShowHelp()
 	default:
@@ -30,15 +31,15 @@ func main() {
 	}
 }
 
-func calcCmd() {
-	fs := flag.NewFlagSet("calc", flag.ExitOnError)
+func estimateCmdWithArgs(args []string) {
+	fs := flag.NewFlagSet("estimate", flag.ExitOnError)
 	inputFile := fs.String("input", "", "JSON file containing T-shirt size counts")
 	inputJSON := fs.String("json", "", "JSON string containing T-shirt size counts")
-	
-	fs.Parse(os.Args[2:])
-	
+
+	fs.Parse(args)
+
 	app := cli.NewApp()
-	
+
 	if *inputFile != "" {
 		if err := app.CalculateFromFile(*inputFile); err != nil {
 			fmt.Printf("Error: %v\n", err)
@@ -50,28 +51,40 @@ func calcCmd() {
 			os.Exit(1)
 		}
 	} else {
-		fmt.Println("Error: calc requires either -input or -json")
+		fmt.Println("Error: estimate requires either -input or -json")
 		fs.Usage()
 		os.Exit(1)
 	}
 }
 
-func reverseCmd() {
-	fs := flag.NewFlagSet("reverse", flag.ExitOnError)
-	points := fs.Int("points", 0, "Target points for reverse calculation")
-	maxTasks := fs.Int("max", 15, "Maximum total tasks for reverse calculation")
+func breakdownCmd() {
+	args := os.Args[2:]
 	
-	fs.Parse(os.Args[2:])
-	
-	if *points <= 0 {
-		fmt.Println("Error: reverse requires -points with a positive value")
-		fs.Usage()
+	if len(args) < 1 {
+		fmt.Println("Error: breakdown requires points as first argument")
+		fmt.Println("Usage: sizely breakdown <points> [-max <max_tasks>]")
 		os.Exit(1)
 	}
-	
+
+	var points int
+	if _, err := fmt.Sscanf(args[0], "%d", &points); err != nil {
+		fmt.Printf("Error: invalid points value '%s', must be a positive integer\n", args[0])
+		os.Exit(1)
+	}
+
+	if points <= 0 {
+		fmt.Println("Error: points must be positive")
+		os.Exit(1)
+	}
+
+	fs := flag.NewFlagSet("breakdown", flag.ExitOnError)
+	maxTasks := fs.Int("max", 15, "Maximum total tasks for reverse calculation")
+
+	fs.Parse(args[1:])
+
 	app := cli.NewApp()
-	
-	if err := app.ReverseCalculate(*points, *maxTasks); err != nil {
+
+	if err := app.ReverseCalculate(points, *maxTasks); err != nil {
 		fmt.Printf("Error: %v\n", err)
 		os.Exit(1)
 	}

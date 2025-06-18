@@ -70,16 +70,16 @@ USAGE:
   sizely <command> [options]
 
 COMMANDS:
-  calc           Calculate total points from T-shirt sizes
-  reverse        Find all combinations for given points
+  estimate          Calculate total points from T-shirt sizes (default)
+  breakdown         Find all combinations for given points
   help           Show this help
 
-CALC OPTIONS:
+ESTIMATE OPTIONS:
   -input FILE    JSON file containing task counts
   -json STRING   JSON string containing task counts
 
-REVERSE OPTIONS:
-  -points INT    Target points for reverse calculation
+BREAKDOWN OPTIONS:
+  <points>       Target points for reverse calculation (required)
   -max INT       Maximum total tasks for reverse calculation (default: 15)
 
 T-SHIRT SIZE POINTS:
@@ -89,17 +89,18 @@ T-SHIRT SIZE POINTS:
   L:  10 points (1 week)
 
 EXAMPLES:
-  # Calculate points from JSON file
-  sizely calc -input tasks.json
+  # Calculate points from JSON file (estimate is default)
+  sizely -input tasks.json
+  sizely estimate -input tasks.json
 
   # Calculate points from JSON string
-  sizely calc -json '{"xs":3,"s":2,"m":1,"l":1}'
+  sizely -json '{"xs":3,"s":2,"m":1,"l":1}'
 
   # Find all combinations for 33 points
-  sizely reverse -points 33
+  sizely breakdown 33
 
   # Find combinations with max 10 tasks
-  sizely reverse -points 33 -max 10
+  sizely breakdown 33 -max 10
 
 JSON FORMAT:
   {

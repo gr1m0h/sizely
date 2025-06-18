@@ -130,9 +130,9 @@ snapshot:
 ## run-example: Run example with sample data
 run-example: build
 	@echo "Running example calculation..."
-	$(BINARY_PATH) -calc -input examples/basic/tasks.json
-	@echo "\nRunning reverse calculation example..."
-	$(BINARY_PATH) -reverse -points 33
+	$(BINARY_PATH) estimate -input examples/basic/tasks.json
+	@echo "\nRunning breakdown calculation example..."
+	$(BINARY_PATH) breakdown -points 33
 
 ## docker-build: Build Docker image
 docker-build:
