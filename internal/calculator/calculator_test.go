@@ -45,7 +45,6 @@ func TestCalculatePoints(t *testing.T) {
 	}
 }
 
-
 func TestCalculateSprintCapacity(t *testing.T) {
 	calc := NewCalculator()
 	tasks := models.TaskCount{XS: 3, S: 2, M: 1, L: 1}
