@@ -53,10 +53,8 @@ func (c *Calculator) CalculateSprintCapacity(tasks models.TaskCount) models.Spri
 	}
 
 	return models.SprintCapacity{
-		TotalPoints: totalPoints,
-		TotalTasks:  totalTasks,
-		Breakdown:   breakdown,
-		Tasks:       tasks,
+		Breakdown: breakdown,
+		Tasks:     tasks,
 	}
 }
 
