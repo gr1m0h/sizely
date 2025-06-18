@@ -10,7 +10,7 @@ A command-line tool that performs T-shirt size estimation, calculates sprint cap
 ## 🎯 Features
 
 - **Calculate Sprint Points**: Convert T-shirt size estimates (XS, S, M, L) to points
-- **Reverse Calculation**: Find all possible task combinations for target points
+- **Point Breakdown**: Find all possible task combinations for target points
 - **JSON Support**: Accept input from files or command-line JSON strings
 - **Multiple Output Formats**: Human-readable tables and JSON for automation
 
@@ -39,21 +39,23 @@ make build
 ### Calculate Points from Tasks
 
 ```bash
-# From JSON file
-sizely -calc -input examples/basic/tasks.json
+# From JSON file (estimate is default command)
+sizely -input examples/basic/tasks.json
+sizely estimate -input examples/basic/tasks.json
 
 # From JSON string
-sizely -calc -json '{"xs":3,"s":2,"m":1,"l":1}'
+sizely -json '{"xs":3,"s":2,"m":1,"l":1}'
+sizely estimate -json '{"xs":3,"s":2,"m":1,"l":1}'
 ```
 
 ### Find Task Combinations
 
 ```bash
 # Find all combinations for 33 points
-sizely -reverse -points 33
+sizely breakdown 33
 
 # Limit to maximum 10 tasks
-sizely -reverse -points 33 -max 10
+sizely breakdown 33 -max 10
 ```
 
 ## 📊 T-shirt Size Points
@@ -70,7 +72,7 @@ sizely -reverse -points 33 -max 10
 ### Basic Calculation
 
 ```bash
-$ sizely -calc -json '{"xs":3,"s":2,"m":1,"l":1}'
+$ sizely -json '{"xs":3,"s":2,"m":1,"l":1}'
 
 📊 Sprint Capacity Calculation
 ═══════════════════════════════
@@ -86,7 +88,7 @@ Total:      7 tasks = 24 points
 ### Reverse Calculation
 
 ```bash
-$ sizely -reverse -points 33
+$ sizely breakdown 33
 
 🔍 Finding combinations for 33 points (max 15 tasks)
 ═══════════════════════════════════════════════════
@@ -109,10 +111,6 @@ Found 12 combination(s):
   "l": 2
 }
 ```
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ### Development Setup
 

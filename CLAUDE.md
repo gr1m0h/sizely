@@ -24,7 +24,25 @@ sizely is a Go command-line tool for T-shirt size estimation and sprint capacity
 ### Running Examples
 - `make run-example` - Build and run examples with sample data
 - `./bin/sizely -input examples/basic/tasks.json` - Calculate from JSON file (estimate is default)
-- `./bin/sizely breakdown -points 33` - Find combinations for 33 points
+- `./bin/sizely estimate -input examples/basic/tasks.json` - Explicit estimate command
+- `./bin/sizely -json '{"xs":3,"s":2,"m":1,"l":1}'` - Calculate from JSON string
+- `./bin/sizely breakdown 33` - Find combinations for 33 points
+- `./bin/sizely breakdown 33 -max 10` - Find combinations with max 10 tasks
+
+## CLI Commands
+
+### Commands
+- `estimate` (default) - Calculate total points from T-shirt sizes
+- `breakdown` - Find all combinations for given points
+- `help` - Show help information
+
+### Estimate Options
+- `-i, -input FILE` - JSON file containing task counts
+- `-j, -json STRING` - JSON string containing task counts
+
+### Breakdown Options
+- `<points>` - Target points for reverse calculation (required positional argument)
+- `-m, -max INT` - Maximum total tasks for reverse calculation (default: 15)
 
 ## Architecture
 
