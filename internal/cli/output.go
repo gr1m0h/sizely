@@ -47,15 +47,6 @@ func (f *OutputFormatter) PrintCombinations(result models.CombinationResult) {
 		f.printCombination(i+1, combo)
 	}
 
-	// Print recommendations
-	if len(result.Recommendations) > 0 {
-		fmt.Printf("💡 Recommendations:\n")
-		for _, rec := range result.Recommendations {
-			fmt.Printf("   • %s\n", rec)
-		}
-		fmt.Println()
-	}
-
 	// Generate JSON output for easy integration
 	fmt.Printf("📋 JSON Output:\n")
 	jsonOutput, _ := json.MarshalIndent(result, "", "  ")

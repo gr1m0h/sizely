@@ -43,9 +43,8 @@ type SprintCapacity struct {
 
 // CombinationResult represents the result of reverse calculation
 type CombinationResult struct {
-	TargetPoints    int           `json:"target_points" yaml:"target_points"`
-	MaxTasks        int           `json:"max_tasks" yaml:"max_tasks"`
-	Combinations    []Combination `json:"combinations" yaml:"combinations"`
-	TotalFound      int           `json:"total_found" yaml:"total_found"`
-	Recommendations []string      `json:"recommendations,omitempty" yaml:"recommendations,omitempty"`
+	TargetPoints int           `json:"target_points" yaml:"target_points"`
+	MaxTasks     int           `json:"max_tasks" yaml:"max_tasks"`
+	Combinations []Combination `json:"combinations" yaml:"combinations"`
+	TotalFound   int           `json:"total_found" yaml:"total_found"`
 }

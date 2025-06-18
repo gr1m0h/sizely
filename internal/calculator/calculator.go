@@ -66,14 +66,12 @@ func (c *Calculator) CalculateSprintCapacity(tasks models.TaskCount) models.Spri
 // FindCombinations finds all task combinations for target points
 func (c *Calculator) FindCombinations(targetPoints, maxTasks int) models.CombinationResult {
 	combinations := c.generateCombinations(targetPoints, maxTasks)
-	recommendations := c.generateRecommendations(combinations, targetPoints)
 
 	return models.CombinationResult{
-		TargetPoints:    targetPoints,
-		MaxTasks:        maxTasks,
-		Combinations:    combinations,
-		TotalFound:      len(combinations),
-		Recommendations: recommendations,
+		TargetPoints: targetPoints,
+		MaxTasks:     maxTasks,
+		Combinations: combinations,
+		TotalFound:   len(combinations),
 	}
 }
 
@@ -122,65 +120,4 @@ func (c *Calculator) generateCombinations(targetPoints, maxTasks int) []models.C
 	})
 
 	return combinations
-}
-
-// generateRecommendations provides recommendations for combinations
-func (c *Calculator) generateRecommendations(combinations []models.Combination, targetPoints int) []string {
-	var recommendations []string
-
-	if len(combinations) == 0 {
-		recommendations = append(recommendations, "No valid combinations found. Try adjusting target points or max tasks.")
-		return recommendations
-	}
-
-	// Find combinations with good task balance
-	var balancedCombos []models.Combination
-	var lowTaskCombos []models.Combination
-	var highTaskCombos []models.Combination
-
-	for _, combo := range combinations {
-		totalTasks := combo.XS + combo.S + combo.M + combo.L
-		hasLargeAndSmall := combo.L > 0 && (combo.XS > 0 || combo.S > 0)
-
-		if totalTasks <= 8 {
-			lowTaskCombos = append(lowTaskCombos, combo)
-		} else if totalTasks >= 12 {
-			highTaskCombos = append(highTaskCombos, combo)
-		}
-
-		if hasLargeAndSmall && totalTasks >= 6 && totalTasks <= 10 {
-			balancedCombos = append(balancedCombos, combo)
-		}
-	}
-
-	if len(balancedCombos) > 0 {
-		recommendations = append(recommendations, "Consider combinations with a mix of large and small tasks for balanced workflow")
-	}
-
-	if len(lowTaskCombos) > 0 {
-		recommendations = append(recommendations, "Low task count combinations are good for focused, deep work")
-	}
-
-	if len(highTaskCombos) > 0 {
-		recommendations = append(recommendations, "High task count combinations may cause context switching - monitor carefully")
-	}
-
-	// SRE-specific recommendations
-	if targetPoints >= 30 {
-		recommendations = append(recommendations, "For SRE teams: ensure 20-30% capacity is reserved for incident response")
-	}
-
-	if targetPoints >= 35 {
-		recommendations = append(recommendations, "Consider reducing scope or extending timeline for reliability")
-	}
-
-	return recommendations
-}
-
-// min returns the minimum of two integers
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
 }
