@@ -67,17 +67,20 @@ func ShowHelp() {
 	fmt.Println(`sizely
 
 USAGE:
-  sizely [OPTIONS]
+  sizely <command> [options]
 
-OPTIONS:
-  -calc          Calculate total points from T-shirt sizes
-  -reverse       Find all combinations for given points
+COMMANDS:
+  calc           Calculate total points from T-shirt sizes
+  reverse        Find all combinations for given points
+  help           Show this help
+
+CALC OPTIONS:
   -input FILE    JSON file containing task counts
   -json STRING   JSON string containing task counts
+
+REVERSE OPTIONS:
   -points INT    Target points for reverse calculation
   -max INT       Maximum total tasks for reverse calculation (default: 15)
-  -version       Show version information
-  -help          Show this help
 
 T-SHIRT SIZE POINTS:
   XS: 1 point  (30min - 4hrs)
@@ -87,16 +90,16 @@ T-SHIRT SIZE POINTS:
 
 EXAMPLES:
   # Calculate points from JSON file
-  sizely -calc -input tasks.json
+  sizely calc -input tasks.json
 
   # Calculate points from JSON string
-  sizely -calc -json '{"xs":3,"s":2,"m":1,"l":1}'
+  sizely calc -json '{"xs":3,"s":2,"m":1,"l":1}'
 
   # Find all combinations for 33 points
-  sizely -reverse -points 33
+  sizely reverse -points 33
 
   # Find combinations with max 10 tasks
-  sizely -reverse -points 33 -max 10
+  sizely reverse -points 33 -max 10
 
 JSON FORMAT:
   {
@@ -105,12 +108,6 @@ JSON FORMAT:
     "m": 1,   // M tasks count
     "l": 2    // L tasks count
   }
-
-SRE BEST PRACTICES:
-  - Reserve 20-30% capacity for incident response
-  - Balance large strategic work (L) with quick wins (XS/S)
-  - Consider using ScrumBan for operational flexibility
-  - Track actual vs estimated time for continuous improvement
 
 For more information, visit: https://github.com/gr1m0h/sizely`)
 }

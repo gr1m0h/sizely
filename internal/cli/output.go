@@ -46,11 +46,6 @@ func (f *OutputFormatter) PrintCombinations(result models.CombinationResult) {
 	for i, combo := range result.Combinations {
 		f.printCombination(i+1, combo)
 	}
-
-	// Generate JSON output for easy integration
-	fmt.Printf("📋 JSON Output:\n")
-	jsonOutput, _ := json.MarshalIndent(result, "", "  ")
-	fmt.Printf("%s\n", jsonOutput)
 }
 
 // printCombination prints a single combination with analysis
@@ -108,4 +103,23 @@ func (f *OutputFormatter) printCombinationAdvice(combo models.Combination, total
 	for _, tip := range advice {
 		fmt.Printf("    %s\n", tip)
 	}
+}
+
+func (f *OutputFormatter) PrintCombinationsJSON(result models.CombinationResult) {
+	fmt.Printf("🔍 Finding combinations for %d points (max %d tasks)\n",
+		result.TargetPoints, result.MaxTasks)
+	fmt.Printf("═══════════════════════════════════════════════════\n")
+
+	if result.TotalFound == 0 {
+		fmt.Printf("No combinations found for %d points with max %d tasks\n",
+			result.TargetPoints, result.MaxTasks)
+		return
+	}
+
+	fmt.Printf("Found %d combination(s):\n\n", result.TotalFound)
+
+	// Generate JSON output for easy integration
+	fmt.Printf("📋 JSON Output:\n")
+	jsonOutput, _ := json.MarshalIndent(result, "", "  ")
+	fmt.Printf("%s\n", jsonOutput)
 }
