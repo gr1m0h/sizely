@@ -20,7 +20,13 @@ func NewOutputFormatter() *OutputFormatter {
 func (f *OutputFormatter) PrintCapacity(capacity models.SprintCapacity) {
 	fmt.Printf("📊 Sprint Capacity Calculation\n")
 	fmt.Printf("═══════════════════════════════\n")
-	fmt.Printf("TotalPoints: %d points\n", capacity.TotalPoints)
+	fmt.Printf("XS (1pt):   %d tasks =  %d points\n", capacity.Tasks.XS, capacity.Tasks.XS*1)
+	fmt.Printf("S  (3pt):   %d tasks =  %d points\n", capacity.Tasks.S, capacity.Tasks.S*3)
+	fmt.Printf("M  (5pt):   %d tasks =  %d points\n", capacity.Tasks.M, capacity.Tasks.M*5)
+	fmt.Printf("L (10pt):   %d tasks = %d points\n", capacity.Tasks.L, capacity.Tasks.L*10)
+	fmt.Printf("───────────────────────────────\n")
+	fmt.Printf("Total:      %d tasks = %d points\n", capacity.Tasks.XS+capacity.Tasks.S+capacity.Tasks.M+capacity.Tasks.L, capacity.TotalPoints)
+	fmt.Println()
 }
 
 // PrintCombinations prints reverse calculation results
