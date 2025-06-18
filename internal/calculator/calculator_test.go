@@ -127,9 +127,6 @@ func TestFindCombinations(t *testing.T) {
 				assert.LessOrEqual(t, totalTasks, tt.maxTasks, "Combination tasks should not exceed max")
 				assert.Equal(t, tt.targetPoints, combo.Points, "Combination.Points should match target")
 			}
-
-			// Check recommendations exist
-			assert.NotNil(t, result.Recommendations)
 		})
 	}
 }

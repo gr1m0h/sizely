@@ -40,22 +40,20 @@ make build
 
 ```bash
 # From JSON file (estimate is default command)
-sizely -input examples/basic/tasks.json
-sizely estimate -input examples/basic/tasks.json
+sizely points --file examples/basic/tasks.json
 
 # From JSON string
-sizely -json '{"xs":3,"s":2,"m":1,"l":1}'
-sizely estimate -json '{"xs":3,"s":2,"m":1,"l":1}'
+sizely points --data '{"xs":3,"s":2,"m":1,"l":1}'
 ```
 
 ### Find Task Combinations
 
 ```bash
 # Find all combinations for 33 points
-sizely breakdown 33
+sizely tasks 33
 
 # Limit to maximum 10 tasks
-sizely breakdown 33 -max 10
+sizely tasks 33 --count 10
 ```
 
 ## 📊 T-shirt Size Points
@@ -72,7 +70,7 @@ sizely breakdown 33 -max 10
 ### Basic Calculation
 
 ```bash
-$ sizely -json '{"xs":3,"s":2,"m":1,"l":1}'
+$ sizely points --data '{"xs":3,"s":2,"m":1,"l":1}'
 
 📊 Sprint Capacity Calculation
 ═══════════════════════════════
@@ -88,7 +86,7 @@ Total:      7 tasks = 24 points
 ### Reverse Calculation
 
 ```bash
-$ sizely breakdown 33
+$ sizely tasks 33
 
 🔍 Finding combinations for 33 points (max 15 tasks)
 ═══════════════════════════════════════════════════
