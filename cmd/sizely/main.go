@@ -32,7 +32,10 @@ func pointsCmdWithArgs(args []string) {
 	inputData := fs.String("data", "", "T-shirt size data from string ")
 	fs.StringVar(inputData, "d", "", "T-shirt size data from string")
 
-	fs.Parse(args)
+	if err := fs.Parse(args); err != nil {
+		fmt.Printf("Error: %v\n", err)
+		os.Exit(1)
+	}
 
 	app := cli.NewApp()
 
@@ -79,7 +82,10 @@ func tasksCmd() {
 	outputJSON := fs.Bool("output-json", false, "Output results in JSON format")
 	fs.BoolVar(outputJSON, "o", false, "Output results in JSON format")
 
-	fs.Parse(args[1:])
+	if err := fs.Parse(args[1:]); err != nil {
+		fmt.Printf("Error: %v\n", err)
+		os.Exit(1)
+	}
 
 	app := cli.NewApp()
 
