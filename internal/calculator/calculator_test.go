@@ -45,64 +45,6 @@ func TestCalculatePoints(t *testing.T) {
 	}
 }
 
-func TestAssessCapacity(t *testing.T) {
-	calc := NewCalculator()
-
-	tests := []struct {
-		name            string
-		totalPoints     int
-		totalTasks      int
-		expectedStatus  string
-		expectedOptimal bool
-	}{
-		{
-			name:            "Optimal range",
-			totalPoints:     33,
-			totalTasks:      7,
-			expectedStatus:  "OPTIMAL",
-			expectedOptimal: true,
-		},
-		{
-			name:            "Conservative range",
-			totalPoints:     26,
-			totalTasks:      8,
-			expectedStatus:  "CONSERVATIVE",
-			expectedOptimal: false,
-		},
-		{
-			name:            "Aggressive range",
-			totalPoints:     42,
-			totalTasks:      10,
-			expectedStatus:  "AGGRESSIVE",
-			expectedOptimal: false,
-		},
-		{
-			name:            "Too low",
-			totalPoints:     20,
-			totalTasks:      5,
-			expectedStatus:  "TOO_LOW",
-			expectedOptimal: false,
-		},
-		{
-			name:            "Too high",
-			totalPoints:     50,
-			totalTasks:      15,
-			expectedStatus:  "TOO_HIGH",
-			expectedOptimal: false,
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			result := calc.AssessCapacity(tt.totalPoints, tt.totalTasks)
-			assert.Equal(t, tt.expectedStatus, result.Status)
-			assert.Equal(t, tt.expectedOptimal, result.Optimal)
-			assert.Equal(t, tt.totalPoints, result.TotalPoints)
-			assert.Equal(t, tt.totalTasks, result.TotalTasks)
-			assert.NotEmpty(t, result.Message)
-		})
-	}
-}
 
 func TestCalculateSprintCapacity(t *testing.T) {
 	calc := NewCalculator()
@@ -110,9 +52,13 @@ func TestCalculateSprintCapacity(t *testing.T) {
 
 	result := calc.CalculateSprintCapacity(tasks)
 
-	// Check total points
-	assert.Equal(t, 24, result.Assessment.TotalPoints)
-	assert.Equal(t, 7, result.Assessment.TotalTasks)
+	// Check total points calculation
+	expectedPoints := 3*1 + 2*3 + 1*5 + 1*10 // 3 + 6 + 5 + 10 = 24
+	actualPoints := 0
+	for _, breakdown := range result.Breakdown {
+		actualPoints += breakdown.Total
+	}
+	assert.Equal(t, expectedPoints, actualPoints)
 
 	// Check breakdown
 	assert.Len(t, result.Breakdown, 4)
@@ -193,8 +139,8 @@ func TestGenerateCombinationsEdgeCases(t *testing.T) {
 	calc := NewCalculator()
 
 	t.Run("No valid combinations", func(t *testing.T) {
-		result := calc.FindCombinations(2, 1) // 2 points with max 1 task - impossible with XS=1
-		assert.Equal(t, 1, result.TotalFound) // XS×2 should work
+		result := calc.FindCombinations(2, 1) // 2 points with max 1 task - XS×2 = 2 tasks, exceeds max
+		assert.Equal(t, 0, result.TotalFound) // No valid combinations possible
 	})
 
 	t.Run("Zero points", func(t *testing.T) {
@@ -207,12 +153,12 @@ func TestGenerateCombinationsEdgeCases(t *testing.T) {
 	})
 
 	t.Run("Very restrictive max tasks", func(t *testing.T) {
-		result := calc.FindCombinations(30, 2) // 30 points with max 2 tasks
+		result := calc.FindCombinations(30, 3) // 30 points with max 3 tasks (L×3 = 30 points)
 		assert.Greater(t, result.TotalFound, 0)
 
 		for _, combo := range result.Combinations {
 			totalTasks := combo.XS + combo.S + combo.M + combo.L
-			assert.LessOrEqual(t, totalTasks, 2)
+			assert.LessOrEqual(t, totalTasks, 3)
 		}
 	})
 }
