@@ -72,7 +72,7 @@ make run-example
 - `TaskCount` - Input structure for T-shirt size counts (xs, s, m, l)
 - `SprintCapacity` - Complete sprint calculation with breakdown
 - `Combination` - Task combination result for reverse calculations
-- `CombinationResult` - Full reverse calculation result with recommendations
+- `CombinationResult` - Full reverse calculation result
 
 ### T-shirt Size Points Mapping
 
