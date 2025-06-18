@@ -11,7 +11,6 @@ A command-line tool for SRE teams to calculate sprint capacity using T-shirt siz
 
 - **Calculate Sprint Points**: Convert T-shirt size estimates (XS, S, M, L) to points
 - **Reverse Calculation**: Find all possible task combinations for target points
-- **Capacity Assessment**: Get recommendations based on SRE best practices
 - **JSON Support**: Accept input from files or command-line JSON strings
 - **Multiple Output Formats**: Human-readable tables and JSON for automation
 
@@ -88,8 +87,6 @@ L (10pt):   1 tasks = 10 points
 ───────────────────────────────
 Total:      7 tasks = 24 points
 
-🎯 Capacity Assessment
-⚠️  CONSERVATIVE: 24 points is below optimal range
 ```
 
 ### Reverse Calculation

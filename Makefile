@@ -1,7 +1,7 @@
 # Sprint Capacity Calculator Makefile
 
 # Binary name
-BINARY_NAME=capacity-calc
+BINARY_NAME=sizely
 BINARY_PATH=./bin/$(BINARY_NAME)
 
 # Go parameters

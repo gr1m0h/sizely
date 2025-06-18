@@ -20,9 +20,8 @@ func NewOutputFormatter() *OutputFormatter {
 func (f *OutputFormatter) PrintCapacity(capacity models.SprintCapacity) {
 	fmt.Printf("📊 Sprint Capacity Calculation\n")
 	fmt.Printf("═══════════════════════════════\n")
-
-	// Capacity assessment
-	f.printCapacityAssessment(capacity.Assessment)
+	fmt.Printf("TotalPoints: %d points",
+		capacity.TotalPoints)
 }
 
 // PrintCombinations prints reverse calculation results
@@ -56,27 +55,6 @@ func (f *OutputFormatter) PrintCombinations(result models.CombinationResult) {
 	fmt.Printf("📋 JSON Output:\n")
 	jsonOutput, _ := json.MarshalIndent(result, "", "  ")
 	fmt.Printf("%s\n", jsonOutput)
-}
-
-// printCapacityAssessment prints the capacity assessment section
-func (f *OutputFormatter) printCapacityAssessment(assessment models.CapacityAssessment) {
-	fmt.Printf("\n🎯 Capacity Assessment\n")
-
-	var emoji string
-	switch assessment.Status {
-	case string(models.StatusOptimal):
-		emoji = "✅"
-	case string(models.StatusConservative), string(models.StatusAggressive):
-		emoji = "⚠️ "
-	default:
-		emoji = "🔴"
-	}
-
-	fmt.Printf("%s %s: %d points - %s\n",
-		emoji,
-		assessment.Status,
-		assessment.TotalPoints,
-		assessment.Message)
 }
 
 // printCombination prints a single combination with analysis

@@ -16,14 +16,14 @@ Thank you for your interest in contributing to Sprint Capacity Calculator! We we
 2. **Clone your fork**:
 
    ```bash
-   git clone https://github.com/yourusername/sizely.git
+   git clone https://github.com/gr1m0h/sizely.git
    cd sizely
    ```
 
 3. **Add the upstream remote**:
 
    ```bash
-   git remote add upstream https://github.com/originaluser/sizely.git
+   git remote add upstream https://github.com/gr1m0h/sizely.git
    ```
 
 4. **Install dependencies**:
@@ -248,8 +248,8 @@ When requesting features:
 ## 🏗️ Project Structure
 
 ```
-sizely/
-├── cmd/capacity-calc/     # Main application entry point
+sprint-sizelyulator/
+├── cmd/sizely/     # Main application entry point
 ├── internal/              # Private application code
 │   ├── calculator/        # Core calculation logic
 │   ├── cli/              # CLI interface and output

@@ -20,8 +20,8 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
     -ldflags='-w -s -extldflags "-static"' \
     -a -installsuffix cgo \
-    -o capacity-calc \
-    ./cmd/capacity-calc
+    -o sizely \
+    ./cmd/sizely
 
 # Final stage
 FROM scratch
@@ -33,13 +33,13 @@ COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 
 # Copy the binary
-COPY --from=builder /app/capacity-calc /capacity-calc
+COPY --from=builder /app/sizely /sizely
 
 # Copy example files
 COPY --from=builder /app/examples /examples
 
 # Set the binary as the entrypoint
-ENTRYPOINT ["/capacity-calc"]
+ENTRYPOINT ["/sizely"]
 
 # Default command
 CMD ["--help"]

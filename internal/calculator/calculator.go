@@ -55,51 +55,11 @@ func (c *Calculator) CalculateSprintCapacity(tasks models.TaskCount) models.Spri
 		},
 	}
 
-	// Assess capacity
-	assessment := c.AssessCapacity(totalPoints, totalTasks)
-
 	return models.SprintCapacity{
-		Assessment: assessment,
-		Breakdown:  breakdown,
-		Tasks:      tasks,
-	}
-}
-
-// AssessCapacity provides capacity assessment based on SRE best practices
-func (c *Calculator) AssessCapacity(totalPoints, totalTasks int) models.CapacityAssessment {
-	var status models.CapacityStatus
-	var message string
-	var optimal bool
-
-	switch {
-	case totalPoints >= 28 && totalPoints <= 38:
-		status = models.StatusOptimal
-		message = "Within the ideal range for SRE teams"
-		optimal = true
-	case totalPoints >= 25 && totalPoints < 28:
-		status = models.StatusConservative
-		message = "Below optimal range - consider adding more work"
-		optimal = false
-	case totalPoints > 38 && totalPoints <= 45:
-		status = models.StatusAggressive
-		message = "Above optimal range - may risk overcommitment"
-		optimal = false
-	case totalPoints < 25:
-		status = models.StatusTooLow
-		message = "May indicate insufficient work planned"
-		optimal = false
-	default:
-		status = models.StatusTooHigh
-		message = "High risk of overcommitment"
-		optimal = false
-	}
-
-	return models.CapacityAssessment{
-		Status:      string(status),
-		Message:     message,
 		TotalPoints: totalPoints,
 		TotalTasks:  totalTasks,
-		Optimal:     optimal,
+		Breakdown:   breakdown,
+		Tasks:       tasks,
 	}
 }
 

@@ -67,7 +67,7 @@ func ShowHelp() {
 	fmt.Println(`sizely
 
 USAGE:
-  capacity-calc [OPTIONS]
+  sizely [OPTIONS]
 
 OPTIONS:
   -calc          Calculate total points from T-shirt sizes
@@ -85,24 +85,18 @@ T-SHIRT SIZE POINTS:
   M:  5 points (2-3 days)
   L:  10 points (1 week)
 
-CAPACITY ASSESSMENT:
-  Optimal Range: 28-38 points for SRE teams
-  - Based on 3 team members, 2-week sprints
-  - Includes buffer for incident response
-  - Balances planned work and operational tasks
-
 EXAMPLES:
   # Calculate points from JSON file
-  capacity-calc -calc -input tasks.json
+  sizely -calc -input tasks.json
 
   # Calculate points from JSON string
-  capacity-calc -calc -json '{"xs":3,"s":2,"m":1,"l":1}'
+  sizely -calc -json '{"xs":3,"s":2,"m":1,"l":1}'
 
   # Find all combinations for 33 points
-  capacity-calc -reverse -points 33
+  sizely -reverse -points 33
 
   # Find combinations with max 10 tasks
-  capacity-calc -reverse -points 33 -max 10
+  sizely -reverse -points 33 -max 10
 
 JSON FORMAT:
   {
