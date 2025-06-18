@@ -75,12 +75,12 @@ COMMANDS:
   help           Show this help
 
 ESTIMATE OPTIONS:
-  -input FILE    JSON file containing task counts
-  -json STRING   JSON string containing task counts
+  -i, -input FILE    JSON file containing task counts
+  -j, -json STRING   JSON string containing task counts
 
 BREAKDOWN OPTIONS:
   <points>       Target points for reverse calculation (required)
-  -max INT       Maximum total tasks for reverse calculation (default: 15)
+  -m, -max INT       Maximum total tasks for reverse calculation (default: 15)
 
 T-SHIRT SIZE POINTS:
   XS: 1 point  (30min - 4hrs)

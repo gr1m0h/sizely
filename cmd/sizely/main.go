@@ -34,7 +34,9 @@ func main() {
 func estimateCmdWithArgs(args []string) {
 	fs := flag.NewFlagSet("estimate", flag.ExitOnError)
 	inputFile := fs.String("input", "", "JSON file containing T-shirt size counts")
+	fs.StringVar(inputFile, "i", "", "JSON file containing T-shirt size counts")
 	inputJSON := fs.String("json", "", "JSON string containing T-shirt size counts")
+	fs.StringVar(inputJSON, "j", "", "JSON string containing T-shirt size counts")
 
 	fs.Parse(args)
 
@@ -79,6 +81,7 @@ func breakdownCmd() {
 
 	fs := flag.NewFlagSet("breakdown", flag.ExitOnError)
 	maxTasks := fs.Int("max", 15, "Maximum total tasks for reverse calculation")
+	fs.IntVar(maxTasks, "m", 15, "Maximum total tasks for reverse calculation")
 
 	fs.Parse(args[1:])
 
