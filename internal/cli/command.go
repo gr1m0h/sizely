@@ -64,50 +64,54 @@ func (a *App) ReverseCalculate(points, maxTasks int) error {
 
 // ShowHelp displays help information
 func ShowHelp() {
-	fmt.Println(`sizely
+	fmt.Println(`sizely - T-shirt size estimation and sprint capacity planning tool
+
+DESCRIPTION:
+  sizely calculates sprint points from T-shirt sizes and performs reverse calculations
+  to find optimal task combinations for target points.
 
 USAGE:
   sizely <command> [options]
 
 COMMANDS:
-  estimate          Calculate total points from T-shirt sizes (default)
-  breakdown         Find all combinations for given points
-  help           Show this help
+  estimate           Calculate total sprint points from T-shirt size counts (default)
+  breakdown          Find all possible task combinations for a target point value
+  help               Show this help information
 
 ESTIMATE OPTIONS:
-  -i, -input FILE    JSON file containing task counts
-  -j, -json STRING   JSON string containing task counts
+  -i, -input FILE    Path to JSON file containing T-shirt size task counts
+  -j, -json STRING   JSON string containing T-shirt size task counts
 
 BREAKDOWN OPTIONS:
-  <points>       Target points for reverse calculation (required)
-  -m, -max INT       Maximum total tasks for reverse calculation (default: 15)
+  <points>           Target points for reverse calculation (required positional argument)
+  -m, -max INT       Maximum number of total tasks allowed in combinations (default: 15)
 
-T-SHIRT SIZE POINTS:
-  XS: 1 point  (30min - 4hrs)
-  S:  3 points (4hrs - 1 day)
-  M:  5 points (2-3 days)
+T-SHIRT SIZE POINT SYSTEM:
+  XS: 1 point   (30 minutes - 4 hours)
+  S:  3 points  (4 hours - 1 day)
+  M:  5 points  (2-3 days)
   L:  10 points (1 week)
 
 EXAMPLES:
-  # Calculate points from JSON file (estimate is default)
-  sizely -input tasks.json
-  sizely estimate -input tasks.json
+  # Calculate total points from JSON file (estimate is the default command)
+  sizely -input examples/basic/tasks.json
+  sizely estimate -input examples/basic/tasks.json
 
-  # Calculate points from JSON string
+  # Calculate points from inline JSON string
   sizely -json '{"xs":3,"s":2,"m":1,"l":1}'
 
-  # Find all combinations for 33 points
+  # Find all task combinations that sum to 33 points
   sizely breakdown 33
 
-  # Find combinations with max 10 tasks
+  # Find combinations with maximum 10 total tasks
   sizely breakdown 33 -max 10
 
-JSON FORMAT:
+JSON INPUT FORMAT:
   {
-    "xs": 2,  // XS tasks count
-    "s": 3,   // S tasks count
-    "m": 1,   // M tasks count
-    "l": 2    // L tasks count
+    "xs": 2,  // Number of XS tasks
+    "s": 3,   // Number of S tasks  
+    "m": 1,   // Number of M tasks
+    "l": 2    // Number of L tasks
   }
 
 For more information, visit: https://github.com/gr1m0h/sizely`)
