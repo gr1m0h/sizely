@@ -313,24 +313,6 @@ func (f *OutputFormatter) PrintBox(title string, content []string) {
 	fmt.Printf("%s\n\n", bottomBorder)
 }
 
-// PrintStatusIcon returns appropriate status icon
-func (f *OutputFormatter) PrintStatusIcon(status string) string {
-	switch strings.ToUpper(status) {
-	case "SUCCESS", "OPTIMAL", "COMPLETED":
-		return "✅"
-	case "WARNING", "CONSERVATIVE", "AGGRESSIVE":
-		return "⚠️"
-	case "ERROR", "FAILED", "TOO_HIGH", "TOO_LOW":
-		return "❌"
-	case "INFO", "PENDING":
-		return "ℹ️"
-	case "QUESTION":
-		return "❓"
-	default:
-		return "•"
-	}
-}
-
 // PrintColoredText prints text with color codes (for terminals that support ANSI)
 func (f *OutputFormatter) PrintColoredText(text, color string) {
 	colorCodes := map[string]string{

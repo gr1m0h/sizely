@@ -24,9 +24,6 @@ func (c *Calculator) CalculatePoints(tasks models.TaskCount) int {
 
 // CalculateSprintCapacity calculates complete sprint capacity with assessment
 func (c *Calculator) CalculateSprintCapacity(tasks models.TaskCount) models.SprintCapacity {
-	totalPoints := c.CalculatePoints(tasks)
-	totalTasks := tasks.XS + tasks.S + tasks.M + tasks.L
-
 	// Create breakdown
 	breakdown := []models.TaskBreakdown{
 		{
