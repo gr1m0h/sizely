@@ -3,6 +3,7 @@
 [![CI](https://github.com/gr1m0h/sizely/workflows/CI/badge.svg)](https://github.com/gr1m0h/sizely/actions)
 [![Go Report Card](https://goreportcard.com/badge/github.com/gr1m0h/sizely)](https://goreportcard.com/report/github.com/gr1m0h/sizely)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A command-line tool that performs T-shirt size estimation, calculates sprint capacity, and finds the optimal combination of tasks for the target sprint point.
 
 ## 🎯 Features
